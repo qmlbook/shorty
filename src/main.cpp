@@ -2,7 +2,7 @@
  * Shorty - a QML screenshot utility
  * Copyright (C) 2012-14 Johan Thelin <e8johan@gmail.com>
  *                   and Juergen Bocklage-Ryannel <juergen@ryannel.org>
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
@@ -28,12 +28,21 @@
 int main(int argc, char** argv)
 {
     QGuiApplication app(argc, argv);
-    QQuickView view;
-    if(app.arguments().count() != 2) {
+    QCoreApplication::setApplicationName("shorty");
+    QCoreApplication::setApplicationVersion("1.0");
+    QCommandLineParser parser;
+    parser.setApplicationDescription("Screenshot tool");
+    parser.addHelpOption();
+    parser.addVersionOption();
+    parser.addPositionalArgument("script", "qml script to run");
+    parser.process(app);
+    const QStringList args = parser.positionalArguments();
+    if(args.count() != 1) {
         qFatal("no qml script provided");
     }
-    QString script = app.arguments().at(1);
+    QString script = args.at(0);
 
+    QQuickView view;
     Shorty shorty(&view);
     view.rootContext()->setContextProperty(QLatin1String("shorty"), &shorty);
 
