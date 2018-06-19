@@ -19,10 +19,10 @@
  *
  */
 
-#include <QtCore/QtCore>
-#include <QtGui/QtGui>
-#include <QtQuick/QtQuick>
-#include <QtQml/QtQml>
+#include <QtCore>
+#include <QtGui>
+#include <QtQml>
+#include <QtQuick>
 #include "shorty.h"
 
 int main(int argc, char** argv)
@@ -30,18 +30,22 @@ int main(int argc, char** argv)
     QGuiApplication app(argc, argv);
     QCoreApplication::setApplicationName("shorty");
     QCoreApplication::setApplicationVersion("1.0");
+    // parse command line args
     QCommandLineParser parser;
     parser.setApplicationDescription("Screenshot tool");
     parser.addHelpOption();
     parser.addVersionOption();
     parser.addPositionalArgument("script", "qml script to run");
     parser.process(app);
+
+    // extract script argument
     const QStringList args = parser.positionalArguments();
     if(args.count() != 1) {
         qFatal("no qml script provided");
     }
     QString script = args.at(0);
 
+    // setup shorty
     QQuickView view;
     Shorty shorty(&view);
     view.rootContext()->setContextProperty(QLatin1String("shorty"), &shorty);
@@ -49,7 +53,7 @@ int main(int argc, char** argv)
     view.setSource(QUrl::fromLocalFile(script));
     QObject::connect(view.engine(), SIGNAL(quit()), QGuiApplication::instance(), SLOT(quit()));
 
-
+    // run shorty
     view.show();
     return app.exec();
 }
