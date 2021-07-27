@@ -19,7 +19,7 @@
  *
  */
 
-import QtQuick 2.0
+import QtQuick 6.2
 
 Rectangle {
     width: 200
@@ -52,8 +52,6 @@ Rectangle {
         }
         index += 1
     }
-
-
 
     Component.onCompleted: {
         delay.start()

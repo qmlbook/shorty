@@ -3,7 +3,7 @@ Shorty
 
 A QML screenshot utility.
 
-Copyright(C) 2012-2014 Johan Thelin `<e8johan@gmail.com>`
+Copyright(C) 2012-2021 Johan Thelin `<e8johan@gmail.com>`
 and Juergen Bocklage-Ryannel `<juergen@ryannel.org>`
 
 Shorty is open source software and is available under the GPLv2 license. Please
@@ -22,7 +22,7 @@ Building
 Shorty depends on Qt 5.x and uses `qmake` for building. Issue the following 
 commands to build your copy of shorty:
 
-  `qmake && make`
+  `mkdir build && cd build && cmake .. && make`
   
 This results in the binary `bin/shorty`.
 
